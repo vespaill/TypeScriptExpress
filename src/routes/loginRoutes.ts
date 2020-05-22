@@ -7,11 +7,21 @@ interface RequestWithBody extends Request {
 const router = Router();
 
 router.get("/", (req: Request, res: Response) => {
-    res.send(`
-        <div>
-            <h1>Hi There!</h1>
-        </div>
-    `);
+    if (req.session && req.session.loggedIn) {
+        res.send(`
+            <div>
+                <div>You are logged in</div>
+                <a href="/loggout">Logout</a>
+            </div>
+        `);
+    } else {
+        res.send(`
+            <div>
+                <div>You are not logged in</div>
+                <a href="/login">Login</a>
+            </div>
+        `);
+    }
 });
 
 router
