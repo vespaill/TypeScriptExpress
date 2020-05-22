@@ -34,10 +34,16 @@ router
     .post((req: RequestWithBody, res: Response) => {
         const { email, password } = req.body;
 
-        if (email) {
-            res.send(email.toUpperCase());
+        if (
+            email &&
+            password &&
+            email === "hi@hi.com" &&
+            password === "password"
+        ) {
+            req.session = { loggedIn: true };
+            res.redirect("/");
         } else {
-            res.send("You must provide an email property");
+            res.send("Invalid email or password");
         }
     });
 
